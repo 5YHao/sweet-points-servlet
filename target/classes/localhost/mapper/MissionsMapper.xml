@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="localhost.mapper.MissionsMapper">
+    <insert id="publishMission" parameterType = "Mission" useGeneratedKeys = "true" keyProperty = "id">
+        insert into missions (name,publisher_id,points,publish_datetime,description) values(#{name},#{publisher_id},#{points},#{publish_datetime},#{description});
+    </insert>
+    <update id="changeMissionPointsById">
+        update missions set points = #{newPoints} where id = #{id};
+    </update>
+    <update id="updateMissionInfo">
+        update missions set name=#{name},description=#{description},points=#{points} where id = #{id};
+    </update>
+    <delete id="deleteMissionByUserId">
+        delete from missions where publisher_id = #{user_id};
+    </delete>
+    <delete id="deleteMissionById">
+        delete from missions where id = #{id};
+    </delete>
+
+    <select id="selectMissionsByPublisherId" resultType="Mission">
+        select id,name,points,publisher_id,description,publish_datetime from missions where publisher_id = #{publisher_id} order by publish_datetime desc;
+    </select>
+    <select id="selectPointsById" resultType="Mission">
+        SELECT points FROM missions WHERE id = #{id};
+    </select>
+    <select id="selectMissionInfoById" resultType="localhost.pojo.Mission">
+        select id,name,points,publisher_id,description,publish_datetime from missions where id = #{id};
+    </select>
+
+
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="localhost.mapper.GetMissionRecordMapper">
+    <update id="changeMissionStatus">
+        update get_mission_record set status = #{status} where id = #{getMission_id};
+    </update>
+
+    <delete id="deleteGetMissionRecordByUserId">
+        DELETE FROM get_mission_record WHERE user_id = #{user_id};
+    </delete>
+    <delete id="deleteGetMissionRecordById">
+        delete from get_mission_record where id = #{id};
+    </delete>
+    <delete id="deleteGetMissionRecordByMissionId">
+        delete from get_mission_record where mission_id = #{mission_id};
+    </delete>
+
+    <insert id="getMission" parameterType = "GetMissionRecord" useGeneratedKeys = "true" keyProperty = "id">
+        insert into get_mission_record (mission_id,user_id,status,get_datetime) values
+        (#{mission_id},#{user_id},#{status},#{get_datetime});
+
+    </insert>
+    <select id="selectGetMissionRecordByUserId" resultType="localhost.pojo.GetMissionRecord">
+        SELECT a.id,mission_id,user_id,STATUS,get_datetime,b.name,b.points,b.description FROM (SELECT id,mission_id,user_id,STATUS,get_datetime FROM get_mission_record WHERE user_id = #{user_id} ) a,missions b WHERE a.mission_id=b.id ORDER BY STATUS ASC,get_datetime DESC;
+    </select>
+    <select id="selectGetMissionRecordByUserIdAndStatus" resultType="localhost.pojo.GetMissionRecord">
+        select id,mission_id,user_id,status,get_datetime from get_mission_record where user_id = #{user_id} and status = #{status} order by get_datetime desc;
+    </select>
+    <select id="selectGetMissionRecordById" resultType="localhost.pojo.GetMissionRecord">
+        select id,mission_id,user_id,status,get_datetime from get_mission_record where id = #{id} order by get_datetime desc;
+    </select>
+</mapper>

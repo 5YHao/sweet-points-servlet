@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="localhost.mapper.AwardsMapper">
+    <insert id="publishAward" parameterType="Award" useGeneratedKeys="true" keyProperty="id">
+        insert into awards (name,price,publisher_id,publish_datetime,description) values
+        (#{name},#{price},#{publisher_id},#{publish_datetime},#{description});
+
+    </insert>
+    <update id="changeAwardPriceById">
+        update awards set price = #{newPrice} where id = #{id};
+    </update>
+    <update id="updateAwardInfo">
+        update awards set name = #{name},description=#{description},price = #{price} where id = #{id};
+    </update>
+    <delete id="deleteAwardByUserId">
+        delete from awards where publisher_id = #{user_id};
+    </delete>
+    <delete id="deleteAwardById">
+        delete from awards where id = #{id};
+    </delete>
+
+    <select id="selectAwardsByPublisherId" resultType="localhost.pojo.Award">
+        select id,name,price,publisher_id,description,publish_datetime from awards where publisher_id = #{publisher_id};
+    </select>
+    <select id="selectAwardInfoById" resultType="localhost.pojo.Award">
+        select id,name,price,publisher_id,description,publish_datetime from awards where id = #{id}
+    </select>
+</mapper>

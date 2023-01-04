@@ -1,0 +1,74 @@
+package localhost.servlet;
+
+import com.alibaba.fastjson.JSON;
+import localhost.mapper.GetAwardRecordMapper;
+import localhost.pojo.GetAwardRecord;
+import localhost.pojo.ReturnData;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+
+@WebServlet("/consumeAward")
+public class consumeAward extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter writer = response.getWriter();
+        writer.write("拒绝访问");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // POST请求解决中文乱码
+        request.setCharacterEncoding("UTF-8");
+        // 解决跨域
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        // 设置响应的网络文件的类型和网页的编码
+        response.setContentType("text/html;charset=utf-8");
+        // 获取response的写入对象
+        PrintWriter writer = response.getWriter();
+
+//      加载核心配置文件
+        InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+//      构造SqlSession实例对象
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream) ;
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+//        接收前端数据
+        int id = Integer.parseInt(request.getParameter("id"));
+        // 执行sql
+        GetAwardRecordMapper getAwardRecordMapper = sqlSession.getMapper(GetAwardRecordMapper.class);
+        Integer changeAwardStatusResult = getAwardRecordMapper.changeAwardStatus(id, 1);
+        if(changeAwardStatusResult>0){
+            //提交事务
+            sqlSession.commit();
+            ReturnData returnData = new ReturnData();
+            returnData.setMsg("申请兑现成功");
+            returnData.setErr_code(0);
+            returnData.setData(changeAwardStatusResult);
+            writer.write(JSON.toJSONString(returnData));
+        }else{
+            //回滚事务
+//            sqlSession.rollback();
+            ReturnData returnData = new ReturnData();
+            returnData.setMsg("申请兑现失败");
+            returnData.setErr_code(1);
+            returnData.setData(changeAwardStatusResult);
+            writer.write(JSON.toJSONString(returnData));
+        }
+
+        //关闭mysql会话
+        sqlSession.close();
+    }
+}

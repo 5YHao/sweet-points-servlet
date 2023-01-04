@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="localhost.mapper.UsersMapper">
+    <!--    数据库字段名和实体类的成员名不一致，会造成不能自动封装数据-->
+    <!--    解决方案1：sql语句的select选项(即字段)要起别名-->
+    <!--    解决方案2：使用sql标签与include标签呼应[不灵活]-->
+    <!--    解决方案3:resultMap-->
+
+    <!--    <resultMap id="UserResultMap" type="localhost.pojo.User">-->
+
+
+    <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into users (username,password,gender,openid) values(#{username},#{password},#{gender},#{openid}) ;
+    </insert>
+
+    <update id="updatePasswordById">
+        update users
+        set password = #{password}
+        where id = #{id};
+    </update>
+
+    <update id="changePassword">
+        UPDATE users
+        SET password = #{newPassword}
+        WHERE username = #{username};
+    </update>
+
+    <update id="increasePointsById">
+        update users set points = points + #{pointsNum} where id = #{id};
+    </update>
+
+    <update id="decreasePointsById">
+        update users set points = points - #{awardPrice} where id = #{id};
+    </update>
+    <update id="updateUserInfoById">
+        update users set username=#{username},gender=#{gender},avatar_url=#{avatar_url} where id=#{id};
+    </update>
+    <update id="clearPointsById">
+        update users set points=0 where id=#{id};
+    </update>
+
+
+    <select id="selectAllUsers" resultType="User">
+        select id,username,gender,points,openid,avatar_url from users;
+    </select>
+
+    <!--        select id,username,email, level_id as levelId from users; -->
+    <!--    <select id="selectAllUser" resultType="localhost.pojo.User">-->
+    <!--        select id,username,email from users;-->
+    <!--    </select>-->
+
+    <!--
+    <sql id="users_column">
+        id,username,email,level_id as levelId
+    </sql>
+    <select id="selectAllUser" resultType="localhost.pojo.User">
+        select <include refid="users_column"/> from users;
+    </select>
+    -->
+
+
+    <select id="selectUserByUsername" resultType="User">
+        select id,username,gender,points,openid,avatar_url from users where username = #{username};
+    </select>
+
+    <select id="selectUserById" resultType="User">
+        select id,username,gender,points,openid,avatar_url from users where id = #{id};
+    </select>
+
+    <!--    简单用户登录-->
+    <select id="login" resultType="User">
+        select id,username,gender,points,openid,avatar_url from users where username = #{username} and password = #{password};
+    </select>
+    <!--    查询用户积分    -->
+    <select id="selectUserHaveHowManyPointsById" resultType="java.lang.Integer">
+        select points from users where id = #{id};
+    </select>
+    <select id="selectUserByOpenid" resultType="localhost.pojo.User">
+        select id,username,gender,points,openid,avatar_url from users where openid = #{openid};
+    </select>
+
+    <!--根据id数组批量删除用户-->
+    <delete id="deleteUserByIds">
+        delete from users where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        ;
+    </delete>
+</mapper>

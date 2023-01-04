@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="localhost.mapper.GetAwardRecordMapper">
+    <update id="changeAwardStatus">
+        update get_award_record set status = #{status} where id = #{getAward_id};
+    </update>
+    <delete id="deleteGetAwardRecordByUserId">
+        DELETE FROM get_award_record WHERE user_id = #{user_id};
+    </delete>
+    <delete id="deleteGetAwardRecordByAwardId">
+        delete from get_award_record where award_id = #{award_id};
+    </delete>
+    <insert id="getAward" parameterType = "GetAwardRecord" useGeneratedKeys = "true" keyProperty = "id">
+        insert into get_award_record (award_id,user_id,status,get_datetime) values(#{award_id},#{user_id},#{status},#{get_datetime});
+    </insert>
+    <select id="selectGetAwardRecordByUserId" resultType="localhost.pojo.GetAwardRecord">
+        select a.id,award_id,get_datetime,status,user_id,name,description from (SELECT id,award_id,get_datetime,STATUS,user_id FROM get_award_record where user_id = #{user_id}) a,awards b where a.award_id = b.id order by status asc,get_datetime desc;
+
+    </select>
+    <select id="selectGetAwardRecordByUserIdAndStatus" resultType="localhost.pojo.GetAwardRecord">
+        select id,award_id,user_id,get_datetime,status from get_award_record where user_id = #{user_id} and status = #{status} order by get_datetime desc;
+    </select>
+    <select id="selectGetAwardRecordById" resultType="localhost.pojo.GetAwardRecord">
+        seelect id,award_id,user_id,get_datetime,status from from get_award_record where id = #{id} order by get_datetime desc;
+    </select>
+</mapper>

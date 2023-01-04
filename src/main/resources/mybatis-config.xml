@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <package name="localhost.pojo"/>
+    </typeAliases>
+
+
+<!--    可以搞多个环境，使用场景：可以连多个数据库-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+<!--                Mysql连接信息-->
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://119.29.159.199:3306/mousehao_end_of_term?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="w20020121."/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+<!--        加载sql映射文件-->
+<!--        <mapper resource="localhost/mapper/UsersMapper.xml"/>-->
+        
+<!--        包代理方式扫描-->
+<!--        localhost.mapper里的接口文件名与localhost.mapper里的xml文件名必须一致   <请检查！！！> -->
+        <package name="localhost.mapper"/>
+    </mappers>
+    
+</configuration>

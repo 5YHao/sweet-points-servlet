@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="localhost.mapper.CouplesMapper">
+    <insert id="bindCouple" parameterType = "Couple" useGeneratedKeys = "true" keyProperty = "id">
+        insert into couples (boy_id,girl_id) values (#{boy_id},#{girl_id});
+    </insert>
+    <delete id="breakCouple">
+        delete from couples where id = #{couple_id};
+    </delete>
+
+    <select id="selectCoupleInfoByUserId" resultType="Couple">
+        select id,boy_id,girl_id from couples where boy_id = #{userId} or girl_id = #{userId};
+    </select>
+    <select id="selectCoupleInfoById" resultType="localhost.pojo.Couple">
+        select id,boy_id,girl_id from couples where id = #{couple_id};
+    </select>
+</mapper>
