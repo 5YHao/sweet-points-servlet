@@ -35,7 +35,6 @@ localhost\servlet\publishAward.class
 localhost\pojo\GetAwardRecord.class
 localhost\servlet\selectUserByUsername.class
 localhost\servlet\selectCoupleInfoByUserId.class
-localhost\servlet\login.class
 localhost\servlet\changePassword.class
 localhost\servlet\updateUserInfoById$1.class
 localhost\servlet\giveupMission.class

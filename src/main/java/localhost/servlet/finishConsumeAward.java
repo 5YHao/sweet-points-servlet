@@ -3,6 +3,7 @@ package localhost.servlet;
 import com.alibaba.fastjson.JSON;
 import localhost.mapper.GetAwardRecordMapper;
 import localhost.pojo.ReturnData;
+import localhost.util.SqlSessionFactoryUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -37,10 +38,7 @@ public class finishConsumeAward extends HttpServlet {
         // 获取response的写入对象
         PrintWriter writer = response.getWriter();
 
-//      加载核心配置文件
-        InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
-//      构造SqlSession实例对象
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream) ;
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtil.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
 //        接收前端数据

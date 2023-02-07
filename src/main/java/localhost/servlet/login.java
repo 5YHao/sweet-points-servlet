@@ -55,8 +55,11 @@ public class login extends HttpServlet {
         sqlSession.close();
 
 //        解决跨域
-        response.setHeader("Access-Control-Allow-Origin", "*");
         response.setContentType("text/html;charset=utf-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+
+
         PrintWriter writer = response.getWriter();
         if (user != null) {
 //            登录成功

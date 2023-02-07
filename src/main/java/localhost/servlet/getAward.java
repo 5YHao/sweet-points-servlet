@@ -7,6 +7,7 @@ import localhost.mapper.UsersMapper;
 import localhost.pojo.Award;
 import localhost.pojo.GetAwardRecord;
 import localhost.pojo.ReturnData;
+import localhost.util.SqlSessionFactoryUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -36,9 +37,7 @@ public class getAward extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
         //        加载mybatis核心配置文件，获取SqlSessionFactory对象
-        String resource = "mybatis-config.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtil.getSqlSessionFactory();
 
 //        获取SqlSession对象
         SqlSession sqlSession = sqlSessionFactory.openSession();

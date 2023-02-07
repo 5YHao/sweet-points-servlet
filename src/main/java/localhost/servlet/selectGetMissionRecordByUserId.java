@@ -6,6 +6,7 @@ import localhost.mapper.GetMissionRecordMapper;
 import localhost.pojo.GetAwardRecord;
 import localhost.pojo.GetMissionRecord;
 import localhost.pojo.ReturnData;
+import localhost.util.SqlSessionFactoryUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -35,9 +36,7 @@ public class selectGetMissionRecordByUserId extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
         //        加载mybatis核心配置文件，获取SqlSessionFactory对象
-        String resource = "mybatis-config.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtil.getSqlSessionFactory();
 //        解决跨域
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setContentType("text/html;charset=utf-8");
