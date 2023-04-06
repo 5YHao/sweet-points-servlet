@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="end_of_term:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>end_of_term</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="end_of_term-1.0.war">
+      <element id="artifact" artifact-name="end_of_term:war exploded" />
+    </root>
+  </artifact>
+</component>

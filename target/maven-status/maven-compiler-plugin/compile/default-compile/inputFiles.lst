@@ -8,6 +8,7 @@ D:\IDEA_Project\end_of_term\src\main\java\localhost\pojo\Couple.java
 D:\IDEA_Project\end_of_term\src\main\java\localhost\servlet\login.java
 D:\IDEA_Project\end_of_term\src\main\java\localhost\mapper\CouplesMapper.java
 D:\IDEA_Project\end_of_term\src\main\java\localhost\servlet\getAward.java
+D:\IDEA_Project\end_of_term\src\main\java\localhost\util\SqlSessionFactoryUtil.java
 D:\IDEA_Project\end_of_term\src\main\java\localhost\servlet\changePassword.java
 D:\IDEA_Project\end_of_term\src\main\java\localhost\servlet\selectCoupleAwardsByUserId.java
 D:\IDEA_Project\end_of_term\src\main\java\localhost\servlet\updateAwardInfo.java

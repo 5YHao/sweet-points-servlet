@@ -22,24 +22,6 @@
                     <includeEmptyDirectories>true</includeEmptyDirectories>
                 </configuration>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>org.apache.maven.plugins</groupId>-->
-            <!--                <artifactId>maven-compiler-plugin</artifactId>-->
-            <!--                <version>3.6.0</version>-->
-            <!--                <configuration>-->
-            <!--                    <source>1.8</source>-->
-            <!--                    <target>1.8</target>-->
-            <!--                </configuration>-->
-
-            <!--            </plugin>-->
-            <!--            <plugin>-->
-            <!--                <groupId>org.apache.tomcat.maven</groupId>-->
-            <!--                <artifactId>tomcat7-maven-plugin</artifactId>-->
-            <!--                <version>2.2</version>-->
-            <!--                <configuration>-->
-            <!--                    <port>7777</port>-->
-            <!--                </configuration>-->
-            <!--            </plugin>-->
         </plugins>
     </build>
 
@@ -93,21 +75,6 @@
             <version>1.2.83</version>
         </dependency>
 
-        <!--        【解决跨域start        -->
-        <!-- https://mvnrepository.com/artifact/com.thetransactioncompany/cors-filter -->
-        <!--        <dependency>-->
-        <!--            <groupId>com.thetransactioncompany</groupId>-->
-        <!--            <artifactId>cors-filter</artifactId>-->
-        <!--            <version>1.7</version>-->
-        <!--        </dependency>-->
-
-        <!-- https://mvnrepository.com/artifact/com.thetransactioncompany/java-property-utils -->
-        <!--        <dependency>-->
-        <!--            <groupId>com.thetransactioncompany</groupId>-->
-        <!--            <artifactId>java-property-utils</artifactId>-->
-        <!--            <version>1.9</version>-->
-        <!--        </dependency>-->
-        <!--        解决跨域end】       -->
 
     </dependencies>
 
